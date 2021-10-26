@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from publisher import delete_topic, list_topics
 import os
 
