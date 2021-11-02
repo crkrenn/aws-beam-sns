@@ -2,8 +2,7 @@
 
 from publisher import list_topics
 from subscriber import (
-    list_subscriptions_in_topic, create_subscription, delete_subscription,
-    receive_messages_with_custom_attributes)
+    list_subscriptions_in_topic, create_subscription, delete_subscription)
 import os
 import sys
 import google.api_core.exceptions
@@ -20,9 +19,7 @@ if not topic_id in topics:
 subscriptions = ( [subscription.split('/')[-1] 
     for subscription in list_subscriptions_in_topic(project_id, topic_id)])
 print(f"subscriptions: {subscriptions}")
-if subscription_id not in subscriptions:
+if subscription_id in subscriptions:
+    delete_subscription(project_id, subscription_id)
+else:
     print(f"ERROR: subscription '{subscription_id}' does not exist.")
-    sys.exit()
-
-receive_messages_with_custom_attributes(
-    project_id, subscription_id, timeout=5.0)
